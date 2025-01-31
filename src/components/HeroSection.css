@@ -1,0 +1,45 @@
+/* Cut Text Animation */
+@keyframes cutText {
+    0% {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    }
+    100% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+  }
+  
+  .cut-text {
+    animation: cutText 1.5s ease-out forwards;
+  }
+  
+  /* Slide-In Text Animation */
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .slide-in-text {
+    animation: slideIn 1s ease-out 0.5s forwards;
+    opacity: 0;
+  }
+  
+  /* Fade-In Text Animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .fade-in-text {
+    animation: fadeIn 1.5s ease-out 1s forwards;
+    opacity: 0;
+  }

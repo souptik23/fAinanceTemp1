@@ -1,10 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+
+  // Track cursor position
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
-    <header className="fixed w-full bg-gradient-to-r from-slate-900/90 to-purple-900/90 backdrop-blur-md shadow-lg z-50">
+    <header className="fixed w-full bg-gradient-to-r from-slate-900/90 to-purple-900/90 backdrop-blur-md shadow-lg z-50 overflow-hidden">
+      {/* Cursor Glow Effect */}
+      <div
+        className="absolute w-48 h-48 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-2xl pointer-events-none transition-opacity duration-300"
+        style={{
+          left: `${cursorPosition.x - 96}px`, // Center the glow around the cursor
+          top: `${cursorPosition.y - 96}px`,
+          opacity: mobileMenuOpen ? 0 : 1, // Hide glow when mobile menu is open
+        }}
+      ></div>
+
       <nav className="container mx-auto px-4 sm:px-6 py-4">
         <div className="flex flex-wrap justify-between items-center">
           {/* Logo section */}
@@ -47,7 +71,11 @@ const Navbar = () => {
                 { name: "AI Banking", icon: "M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18", new: true },
                 { name: "Support", icon: "M18.364 5.636l-3.536 3.536" },
               ].map((item, index) => (
-                <a key={index} href="#" className="nav-link group relative text-gray-300 hover:text-purple-400 transition-colors duration-300">
+                <a
+                  key={index}
+                  href="#"
+                  className="nav-link group relative text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                >
                   <span className="relative z-10 flex items-center">
                     <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={item.icon} />
@@ -59,6 +87,7 @@ const Navbar = () => {
                       </span>
                     )}
                   </span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
                 </a>
               ))}
             </nav>
@@ -69,7 +98,11 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="lg:hidden px-2 pt-2 pb-3 space-y-1">
             {["Home", "Features", "AI Banking", "Support"].map((item, index) => (
-              <a key={index} href="#" className="block px-3 py-2 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded-md">
+              <a
+                key={index}
+                href="#"
+                className="block px-3 py-2 text-gray-300 hover:text-purple-400 hover:bg-purple-500/10 rounded-md transition-all duration-300 transform hover:translate-x-2"
+              >
                 {item}
               </a>
             ))}
