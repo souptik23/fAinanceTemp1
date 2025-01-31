@@ -92,11 +92,11 @@ const CreditCardSection = () => {
 
               {/* Conditional Rendering for 3D or 2D Card */}
               {true ? (
-                <div className="w-96 h-56 mx-auto">
-                  <Canvas camera={{ position: [0, 0, 4] }}>
-                    <OrbitControls enableZoom={false} />
+                <div className="w-[450px] h-[250px] mx-auto">
+                  <Canvas camera={{ position: [0, 0, 5] }}>
+                  <OrbitControls enableZoom={false} target={[0, 0, 0]} />   
                     <ambientLight intensity={0.5} />
-                    <directionalLight position={[2, 2, 5]} intensity={1} />
+                    <directionalLight position={[2, 2, 5]} intensity={2} />
                     <CreditCard3D />
                   </Canvas>
                 </div>
@@ -181,9 +181,8 @@ const CreditCardSection = () => {
 };
 
 const CreditCard3D = () => {
-  const { scene } = useGLTF("/credit-card-3d.glb"); // Corrected path
-
-  return <primitive object={scene} scale={1.5} />;
-};
+    const { scene } = useGLTF("/credit-card-3d.glb");
+    return <primitive object={scene} scale={2.5} position={[0, 0, 0]} />;
+  };    
 
 export default CreditCardSection;
