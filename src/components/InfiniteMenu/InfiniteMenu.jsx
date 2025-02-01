@@ -1,7 +1,7 @@
 /*
 	jsrepo 1.29.1
 	Installed from https://reactbits.dev/tailwind/
-	31-1-2025
+	1-2-2025
 */
 
 import { useEffect, useRef, useState } from "react";

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Building2, GraduationCap, Home, Heart, ArrowRight, Calculator, ChevronRight, DollarSign } from 'lucide-react';
 
 const LoanServicesSection = () => {
-    const [activeLoan, setActiveLoan] = useState('default');
+    const [activeLoan, setActiveLoan] = useState('student'); // Default to student loan
+    const [loanAmount, setLoanAmount] = useState(500000); // Default loan amount in INR
+    const [loanTerm, setLoanTerm] = useState(5); // Default loan term in years
+    const [interestRate, setInterestRate] = useState(4.5); // Default interest rate
 
     const loanTypes = [
         {
@@ -10,10 +16,13 @@ const LoanServicesSection = () => {
             description: 'Low interest rates with flexible repayment options',
             details: [
                 'Interest rate: 4.5% p.a.',
-                'Tenure: Up to 10 years'
+                'Tenure: Up to 10 years',
+                'Zero processing fee for first-time applicants',
+                'Option for deferred payments'
             ],
-            image: '/assets/student-loan.svg',
-            color: 'emerald'
+            icon: <GraduationCap className="w-6 h-6" />,
+            color: 'emerald',
+            defaultRate: 4.5
         },
         {
             id: 'home',
@@ -21,10 +30,13 @@ const LoanServicesSection = () => {
             description: 'Make your dream home a reality with competitive rates',
             details: [
                 'Interest rate: 6.5% p.a.',
-                'Tenure: Up to 30 years'
+                'Tenure: Up to 30 years',
+                'Up to 85% of property value',
+                'Free property valuation'
             ],
-            image: '/assets/home-loan.svg',
-            color: 'teal'
+            icon: <Home className="w-6 h-6" />,
+            color: 'blue',
+            defaultRate: 6.5
         },
         {
             id: 'health',
@@ -32,10 +44,13 @@ const LoanServicesSection = () => {
             description: 'Quick medical financing with minimal documentation',
             details: [
                 'Interest rate: 7% p.a.',
-                'Quick approval within 24 hours'
+                'Quick approval within 24 hours',
+                'No collateral required',
+                'Flexible repayment options'
             ],
-            image: '/assets/health-loan.svg',
-            color: 'emerald'
+            icon: <Heart className="w-6 h-6" />,
+            color: 'rose',
+            defaultRate: 7.0
         },
         {
             id: 'business',
@@ -43,90 +58,238 @@ const LoanServicesSection = () => {
             description: 'Empower your business growth with custom solutions',
             details: [
                 'Interest rate: 8% p.a.',
-                'Flexible collateral options'
+                'Flexible collateral options',
+                'Line of credit available',
+                'Business advisory services included'
             ],
-            image: '/assets/business-loan.svg',
-            color: 'teal'
+            icon: <Building2 className="w-6 h-6" />,
+            color: 'violet',
+            defaultRate: 8.0
         }
     ];
 
+    // Calculate EMI
+    const calculateEMI = (amount, years, rate) => {
+        const r = rate / 12 / 100;
+        const n = years * 12;
+        const emi = (amount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        return Math.round(emi);
+    };
+
+    // Generate dynamic chart data based on loan amount, term, and interest rate
+    const generateChartData = (amount, years, rate) => {
+        const data = [];
+        for (let i = 1; i <= years; i++) {
+            const remainingAmount = amount - (amount / years) * (i - 1);
+            const interest = (remainingAmount * rate) / 100;
+            data.push({
+                year: `Year ${i}`,
+                value: Math.round(interest)
+            });
+        }
+        return data;
+    };
+
+    // Handle loan type selection
+    const handleLoanSelect = (loanId) => {
+        setActiveLoan(loanId);
+        const selectedLoan = loanTypes.find((loan) => loan.id === loanId);
+        setInterestRate(selectedLoan.defaultRate);
+    };
+
+    // Handle Apply Now button click
+    const handleApplyNow = () => {
+        alert(`Application submitted for ₹${loanAmount.toLocaleString()} loan for ${loanTerm} years at ${interestRate}% interest.`);
+    };
+
+    // Get the selected loan details
+    const selectedLoan = loanTypes.find((loan) => loan.id === activeLoan);
+
+    // Generate chart data for the selected loan
+    const chartData = generateChartData(loanAmount, loanTerm, interestRate);
+
     return (
-        <section className="text-gray-600 body-font overflow-hidden relative group">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
             {/* Animated background elements */}
-            <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 to-teal-100"></div>
-                <div className="animate-float absolute top-10 left-10">
-                    <svg className="w-20 h-20 text-emerald-200" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2-1.343-2-3-2zM12 4c-4.418 0-8 2.239-8 5v10c0 2.761 3.582 5 8 5s8-2.239 8-5V9c0-2.761-3.582-5-8-5z"/>
-                    </svg>
-                </div>
-                <div className="animate-float-delayed absolute bottom-10 right-10">
-                    <svg className="w-16 h-16 text-teal-200" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    </svg>
-                </div>
+            <div className="absolute inset-0">
+                <motion.div
+                    className="absolute w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, 50, 0],
+                    }}
+                    transition={{
+                        duration: 20,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    style={{ top: '10%', left: '20%' }}
+                />
+                <motion.div
+                    className="absolute w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+                    animate={{
+                        x: [0, -100, 0],
+                        y: [0, -50, 0],
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    style={{ bottom: '20%', right: '20%' }}
+                />
             </div>
 
-            <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center relative">
-                <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                    <h1 className="title-font sm:text-4xl text-3xl mb-4 font-bold text-gray-900">
-                        Flexible Loan Solutions
-                        <br className="hidden lg:inline-block"/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">For Every Need</span>
+            <div className="container mx-auto px-6 py-24 relative">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
+                >
+                    <h1 className="text-5xl font-bold text-white mb-6">
+                        Smart Loan Solutions
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">
+                            {" "}for Your Future
+                        </span>
                     </h1>
-                    
-                    {/* Loan Types Cards with Hover Effects */}
-                    <div className="w-full max-w-md mb-8 overflow-hidden">
-                        <div className="space-y-4">
-                            {loanTypes.map((loan) => (
-                                <div
-                                    key={loan.id}
-                                    className={`p-4 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg hover:shadow-xl transition-all border-l-4 border-${loan.color}-500 hover:translate-x-2`}
-                                    onMouseEnter={() => setActiveLoan(loan.id)}
-                                    onMouseLeave={() => setActiveLoan('default')}
-                                >
-                                    <h3 className={`text-lg font-semibold text-${loan.color}-600`}>{loan.title}</h3>
-                                    <p className="text-gray-600">{loan.description}</p>
-                                    <div className={`h-0 overflow-hidden hover:h-auto hover:mt-4 transition-all duration-300`}>
-                                        <div className={`bg-${loan.color}-50 p-3 rounded-lg`}>
-                                            {loan.details.map((detail, index) => (
-                                                <p key={index} className={`text-sm text-${loan.color}-700`}>{detail}</p>
-                                            ))}
-                                        </div>
+                    <p className="text-gray-300 text-xl max-w-2xl mx-auto">
+                        Discover tailored financial solutions that match your needs
+                    </p>
+                </motion.div>
+
+                <div className="grid lg:grid-cols-2 gap-12 items-start">
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="space-y-6"
+                    >
+                        {loanTypes.map((loan) => (
+                            <motion.div
+                                key={loan.id}
+                                className="bg-white/10 backdrop-blur-lg rounded-xl p-6 cursor-pointer"
+                                whileHover={{ scale: 1.02, backgroundColor: 'rgba(255, 255, 255, 0.15)' }}
+                                onClick={() => handleLoanSelect(loan.id)}
+                            >
+                                <div className="flex items-start gap-4">
+                                    <div className={`p-3 rounded-lg bg-${loan.color}-500/20 text-${loan.color}-400`}>
+                                        {loan.icon}
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="text-xl font-semibold text-white mb-2">{loan.title}</h3>
+                                        <p className="text-gray-300 mb-4">{loan.description}</p>
+                                        
+                                        <AnimatePresence>
+                                            {activeLoan === loan.id && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="bg-white/5 rounded-lg p-4 mt-4">
+                                                        {loan.details.map((detail, index) => (
+                                                            <div key={index} className="flex items-center gap-2 text-gray-300 mb-2">
+                                                                <ChevronRight className="w-4 h-4" />
+                                                                <span>{detail}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                    <div className="h-40 mt-4">
+                                                        <ResponsiveContainer width="100%" height="100%">
+                                                            <LineChart data={chartData}>
+                                                                <XAxis dataKey="year" stroke="#94a3b8" />
+                                                                <YAxis stroke="#94a3b8" />
+                                                                <Tooltip />
+                                                                <Line type="monotone" dataKey="value" stroke="#60a5fa" strokeWidth={2} />
+                                                            </LineChart>
+                                                        </ResponsiveContainer>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="flex justify-center gap-4">
-                        <button className="inline-flex items-center text-white bg-gradient-to-r from-emerald-600 to-teal-600 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-700 rounded-lg text-lg transition-all hover:scale-105">
-                            Apply Now
-                            <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                        <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded-lg text-lg transition-all hover:scale-105">Calculate EMI</button>
-                    </div>
-                </div>
-                
-                <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 relative">
-                    {/* Individual loan type images that show/hide on hover */}
-                    <div className="relative w-full h-96">
-                        {loanTypes.map((loan) => (
-                            <img
-                                key={loan.id}
-                                className={`object-cover object-center rounded-lg shadow-2xl hidden transition-opacity duration-500 ${activeLoan === loan.id ? 'block' : 'hidden'}`}
-                                src={loan.image}
-                                alt={loan.title}
-                            />
+                            </motion.div>
                         ))}
-                        {/* Default image when no card is hovered */}
-                        <img className={`object-cover object-center rounded-lg shadow-2xl ${activeLoan === 'default' ? 'block' : 'hidden'}`} src="/assets/loan-services.svg" alt="Loan Services" />
-                    </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="bg-white/10 backdrop-blur-lg rounded-xl p-8"
+                    >
+                        <div className="flex items-center justify-between mb-8">
+                            <h3 className="text-2xl font-semibold text-white">Loan Calculator</h3>
+                            <Calculator className="w-6 h-6 text-gray-300" />
+                        </div>
+
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-gray-300 mb-2">Loan Amount (₹)</label>
+                                <div className="relative">
+                                    <input
+                                        type="range"
+                                        min="10000"
+                                        max="10000000"
+                                        value={loanAmount}
+                                        onChange={(e) => setLoanAmount(Number(e.target.value))}
+                                        className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                                    />
+                                    <div className="text-white mt-2">₹{loanAmount.toLocaleString()}</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-300 mb-2">Loan Term (Years)</label>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="30"
+                                    value={loanTerm}
+                                    onChange={(e) => setLoanTerm(Number(e.target.value))}
+                                    className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                                />
+                                <div className="text-white mt-2">{loanTerm} years</div>
+                            </div>
+
+                            <div>
+                                <label className="block text-gray-300 mb-2">Interest Rate (%)</label>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="20"
+                                    step="0.1"
+                                    value={interestRate}
+                                    onChange={(e) => setInterestRate(Number(e.target.value))}
+                                    className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                                />
+                                <div className="text-white mt-2">{interestRate}%</div>
+                            </div>
+
+                            <div className="bg-white/5 rounded-lg p-6">
+                                <h4 className="text-lg font-medium text-white mb-4">Estimated Monthly Payment</h4>
+                                <div className="text-3xl font-bold text-blue-400">
+                                    ₹{calculateEMI(loanAmount, loanTerm, interestRate).toLocaleString()}
+                                </div>
+                            </div>
+
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="w-full py-4 px-6 bg-gradient-to-r from-blue-500 to-violet-500 text-white rounded-lg font-semibold flex items-center justify-center gap-2 group"
+                                onClick={handleApplyNow}
+                            >
+                                <span>Apply Now</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </motion.button>
+                        </div>
+                    </motion.div>
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

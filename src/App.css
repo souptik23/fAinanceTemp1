@@ -40,3 +40,53 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Optional styling for the Signup and Home Pages */
+
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.signup-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container .form-group {
+  margin-bottom: 15px;
+}
+
+.signup-container label {
+  font-weight: bold;
+}
+
+.signup-container input {
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.signup-container button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-container button:hover {
+  background-color: #0056b3;
+}
+
+.home-container {
+  text-align: center;
+  padding: 50px;
+}

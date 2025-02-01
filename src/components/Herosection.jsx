@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import BankBuildingScene from './BankBuildingScene';
+import BankBuildingScene from './BankBuildingScene'; // Ensure this component exists
+import Crosshair from '../components/reactbits/Crosshair'; // Ensure this component exists
 import './HeroSection.css'; // Import custom CSS for animations
 
 const HeroSection = () => {
@@ -20,6 +21,7 @@ const HeroSection = () => {
 
   return (
     <section className="pt-32 pb-20 relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* <Crosshair /> */}
       {/* Cursor Glow Effect */}
       <div
         className="absolute w-48 h-48 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-2xl pointer-events-none transition-opacity duration-300"

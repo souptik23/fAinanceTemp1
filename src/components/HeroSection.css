@@ -1,45 +1,45 @@
-/* Cut Text Animation */
-@keyframes cutText {
-    0% {
-      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-    }
-    100% {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    }
+/* HeroSection.css */
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  .cut-text {
-    animation: cutText 1.5s ease-out forwards;
+  50% {
+    background-position: 100% 50%;
   }
-  
-  /* Slide-In Text Animation */
-  @keyframes slideIn {
-    0% {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
+  100% {
+    background-position: 0% 50%;
   }
-  
-  .slide-in-text {
-    animation: slideIn 1s ease-out 0.5s forwards;
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 5s ease infinite;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(-100%);
     opacity: 0;
   }
-  
-  /* Fade-In Text Animation */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  .fade-in-text {
-    animation: fadeIn 1.5s ease-out 1s forwards;
+}
+
+.slide-in-text {
+  animation: slide-in 1s ease-out forwards;
+}
+
+@keyframes fade-in {
+  0% {
     opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in-text {
+  animation: fade-in 1.5s ease-in forwards;
+}

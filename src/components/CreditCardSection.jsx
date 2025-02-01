@@ -6,9 +6,7 @@ const CreditCardSection = () => {
   const [cardHolderName, setCardHolderName] = useState("CARD HOLDER NAME");
   const [cardType, setCardType] = useState("premium");
   const [cardBackground, setCardBackground] = useState("");
-  const [cardTypeDisplay, setCardTypeDisplay] = useState(
-    "Premium Rewards Card"
-  );
+  const [cardTypeDisplay, setCardTypeDisplay] = useState("Premium Rewards Card");
   const [customUploadVisible, setCustomUploadVisible] = useState(false);
 
   const styles = {
@@ -94,10 +92,10 @@ const CreditCardSection = () => {
               {true ? (
                 <div className="w-[450px] h-[250px] mx-auto">
                   <Canvas camera={{ position: [0, 0, 5] }}>
-                  <OrbitControls enableZoom={false} target={[0, 0, 0]} />   
+                    <OrbitControls enableZoom={false} target={[0, 0, 0]} />
                     <ambientLight intensity={0.5} />
                     <directionalLight position={[2, 2, 5]} intensity={2} />
-                    <CreditCard3D />
+                    <CreditCard3D cardHolderName={cardHolderName} />
                   </Canvas>
                 </div>
               ) : (
@@ -180,9 +178,23 @@ const CreditCardSection = () => {
   );
 };
 
-const CreditCard3D = () => {
-    const { scene } = useGLTF("/credit-card-3d.glb");
-    return <primitive object={scene} scale={2.5} position={[0, 0, 0]} />;
-  };    
+const CreditCard3D = ({ cardHolderName }) => {
+  const { scene } = useGLTF("/credit-card-3d.glb");
+
+  useEffect(() => {
+    // Find the text mesh named "johnwhite" in the GLTF scene
+    const textMesh = scene.getObjectByName("john white");
+    if (textMesh) {
+      // Update the text geometry or material here
+      textMesh.material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Example: Change material color
+      textMesh.geometry = new THREE.TextGeometry(cardHolderName, {
+        size: 0.5,
+        height: 0.1,
+      }); // Example: Update text geometry
+    }
+  }, [cardHolderName, scene]);
+
+  return <primitive object={scene} scale={2.5} position={[0, 0, 0]} />;
+};
 
 export default CreditCardSection;

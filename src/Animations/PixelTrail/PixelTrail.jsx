@@ -1,15 +1,18 @@
-/* eslint-disable react/no-unknown-property */
-import { useMemo } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
-import { shaderMaterial, useTrailTexture } from '@react-three/drei'
-import * as THREE from 'three'
+/*
+	jsrepo 1.29.1
+	Installed from https://reactbits.dev/tailwind/
+	1-2-2025
+*/
 
-const GooeyFilter = ({
-  id = "goo-filter",
-  strength = 10,
-}) => {
+/* eslint-disable react/no-unknown-property */
+import { useMemo } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { shaderMaterial, useTrailTexture } from "@react-three/drei";
+import * as THREE from "three";
+
+const GooeyFilter = ({ id = "goo-filter", strength = 10 }) => {
   return (
-    <svg className='absolute overflow-hidden z-1'>
+    <svg className="absolute overflow-hidden z-1">
       <defs>
         <filter id={id}>
           <feGaussianBlur
@@ -27,15 +30,15 @@ const GooeyFilter = ({
         </filter>
       </defs>
     </svg>
-  )
-}
+  );
+};
 
 const DotMaterial = shaderMaterial(
   {
     resolution: new THREE.Vector2(),
     mouseTrail: null,
     gridSize: 100,
-    pixelColor: new THREE.Color('#ffffff')
+    pixelColor: new THREE.Color("#ffffff"),
   },
   `
     varying vec2 vUv;
@@ -74,8 +77,8 @@ const DotMaterial = shaderMaterial(
       // Use the pixelColor uniform and trail value for alpha
       gl_FragColor = vec4(pixelColor, trail);
     }
-  `
-)
+  `,
+);
 
 function Scene({
   gridSize,
@@ -83,21 +86,21 @@ function Scene({
   maxAge,
   interpolate,
   easingFunction,
-  pixelColor
+  pixelColor,
 }) {
-  const size = useThree((s) => s.size)
-  const viewport = useThree((s) => s.viewport)
+  const size = useThree((s) => s.size);
+  const viewport = useThree((s) => s.viewport);
 
-  const dotMaterial = useMemo(() => new DotMaterial(), [])
-  dotMaterial.uniforms.pixelColor.value = new THREE.Color(pixelColor)
+  const dotMaterial = useMemo(() => new DotMaterial(), []);
+  dotMaterial.uniforms.pixelColor.value = new THREE.Color(pixelColor);
 
   const [trail, onMove] = useTrailTexture({
     size: 512,
     radius: trailSize,
     maxAge: maxAge,
     interpolate: interpolate || 0.1,
-    ease: easingFunction || ((x) => x)
-  })
+    ease: easingFunction || ((x) => x),
+  });
 
   if (trail) {
     trail.minFilter = THREE.NearestFilter;
@@ -106,7 +109,7 @@ function Scene({
     trail.wrapT = THREE.ClampToEdgeWrapping;
   }
 
-  const scale = Math.max(viewport.width, viewport.height) / 2
+  const scale = Math.max(viewport.width, viewport.height) / 2;
 
   return (
     <mesh scale={[scale, scale, 1]} onPointerMove={onMove}>
@@ -118,7 +121,7 @@ function Scene({
         mouseTrail={trail}
       />
     </mesh>
-  )
+  );
 }
 
 export default function PixelTrail({
@@ -130,12 +133,12 @@ export default function PixelTrail({
   canvasProps = {},
   glProps = {
     antialias: false,
-    powerPreference: 'high-performance',
-    alpha: true
+    powerPreference: "high-performance",
+    alpha: true,
   },
   gooeyFilter,
-  color = '#ffffff',
-  className = ''
+  color = "#ffffff",
+  className = "",
 }) {
   return (
     <>
@@ -158,5 +161,5 @@ export default function PixelTrail({
         />
       </Canvas>
     </>
-  )
+  );
 }
