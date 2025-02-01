@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 
 const CreditCardSection = () => {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const [cardHolderName, setCardHolderName] = useState("CARD HOLDER NAME");
   const [cardType, setCardType] = useState("premium");
   const [cardBackground, setCardBackground] = useState("");
@@ -78,9 +83,9 @@ const CreditCardSection = () => {
           <div className="w-full lg:w-1/2 mb-12 lg:mb-0">
             <div className="relative">
               <h2 className="text-4xl font-bold text-white mb-6">
-                Design Your Perfect
+                {t.designYourCard}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
-                  Credit Card
+                  {t.createPersonalized}
                 </span>
               </h2>
               <p className="text-gray-300 text-lg mb-8">

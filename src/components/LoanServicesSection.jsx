@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Building2, GraduationCap, Home, Heart, ArrowRight, Calculator, ChevronRight, DollarSign } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 
 const LoanServicesSection = () => {
+    const { language } = useLanguage();
+    const t = translations[language];
+
     const [activeLoan, setActiveLoan] = useState('student'); // Default to student loan
     const [loanAmount, setLoanAmount] = useState(500000); // Default loan amount in INR
     const [loanTerm, setLoanTerm] = useState(5); // Default loan term in years
@@ -12,7 +17,7 @@ const LoanServicesSection = () => {
     const loanTypes = [
         {
             id: 'student',
-            title: 'Student Loans',
+            title: t.studentLoans,
             description: 'Low interest rates with flexible repayment options',
             details: [
                 'Interest rate: 4.5% p.a.',
@@ -148,13 +153,13 @@ const LoanServicesSection = () => {
                     className="text-center mb-16"
                 >
                     <h1 className="text-5xl font-bold text-white mb-6">
-                        Smart Loan Solutions
+                        {t.smartLoanSolutions}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">
-                            {" "}for Your Future
+                            {" "}{t.forYourFuture}
                         </span>
                     </h1>
                     <p className="text-gray-300 text-xl max-w-2xl mx-auto">
-                        Discover tailored financial solutions that match your needs
+                        {t.discoverSolutions}
                     </p>
                 </motion.div>
 

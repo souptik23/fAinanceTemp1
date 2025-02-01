@@ -6,7 +6,7 @@ import { Particles } from "react-tsparticles";
 import { useNavigate } from "react-router-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Squares from "../reactbits/Squares"; 
+import Squares from "../reactbits/Squares"; // Ensure this path is correct
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +20,7 @@ const SignupPage = () => {
   const [error, setError] = useState("");
   const canvasRef = useRef(null);
   const threeSceneRef = useRef(null);
-  const navigate = useNavigate(); // useNavigate hook
+  const navigate = useNavigate();
 
   // Three.js Scene Setup
   useEffect(() => {
@@ -130,7 +130,7 @@ const SignupPage = () => {
     setIsLoading(false);
 
     // Redirect to Home Page on successful signup
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
@@ -168,9 +168,9 @@ const SignupPage = () => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 w-11/12 max-w-md p-8 rounded-2xl backdrop-blur-xl bg-white/10 shadow-2xl"
+        className="relative z-10 w-11/12 max-w-md p-6 sm:p-8 rounded-2xl backdrop-blur-xl bg-white/10 shadow-2xl"
       >
-        <h2 className="text-3xl font-bold text-white text-center">Create Account</h2>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white text-center">Create Account</h2>
 
         {error && (
           <div className="mt-4 p-3 text-center text-red-300 bg-red-500/20 rounded-lg">
@@ -193,7 +193,7 @@ const SignupPage = () => {
                 value={formData[name]}
                 onChange={handleInputChange}
                 placeholder={label}
-                className="w-full pl-12 pr-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:ring-2 focus:ring-blue-400 transition-all"
+                className="w-full pl-12 pr-4 py-2 sm:py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:ring-2 focus:ring-blue-400 transition-all"
                 required
               />
             </div>
@@ -202,7 +202,7 @@ const SignupPage = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg transition-all"
+            className="w-full py-2 sm:py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg transition-all hover:opacity-90"
           >
             {isLoading ? "Creating Account..." : "Create Account"}
           </button>

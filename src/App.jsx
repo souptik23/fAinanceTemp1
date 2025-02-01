@@ -16,43 +16,46 @@ import Squares from "./components/reactbits/Squares";
 
 import LoginPage from "./components/Pages/LoginPage"; // Ensure this path is correct
 import SignupPage from "./components/Pages/SignupPage"; // Ensure this path is correct
+import { LanguageProvider } from './context/LanguageContext';
 import "./App.css";
 import "./index.css";
 
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<LoginPage />} /> 
-        <Route path="/signup" element={<SignupPage />} />
-        <Route
-          path="/"
-          element={
-            <>
-              <ClickSpark />
-              <Herosection />
-              <FeatureSectionWithAI />
-              <ChatApp />
-              <Carousel />
-              <LoanServicesSection />
-              <CreditCardSection />
-              <AIBankingSection />
-              <FAQSection />
-              <Footer />
-              <Squares />
-              
-              {/* <Waves /> */}
-              {/* <LineDataset /> */}
-              {/* <VariableProximity /> */}
+    <LanguageProvider>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<LoginPage />} /> 
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <ClickSpark />
+                <Herosection />
+                <FeatureSectionWithAI />
+                <ChatApp />
+                <Carousel />
+                <LoanServicesSection />
+                <CreditCardSection />
+                <AIBankingSection />
+                <FAQSection />
+                <Footer />
+                <Squares />
+                
+                {/* <Waves /> */}
+                {/* <LineDataset /> */}
+                {/* <VariableProximity /> */}
 
-            </>
-          }
-        />
-      </Routes>
-    </div>
+              </>
+            }
+          />
+        </Routes>
+      </div>
+    </LanguageProvider>
   );
 }
 
-export default App; 
+export default App;
