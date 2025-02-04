@@ -1,25 +1,15 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
-import Herosection from "./components/Herosection";
-import FeatureSectionWithAI from "./components/Featuresectionwithai";
-import ChatApp from "./components/Chatapp";
-import Carousel from "./components/Carousel";
-import LoanServicesSection from "./components/LoanServicesSection";
-import CreditCardSection from "./components/CreditCardSection";
-import FAQSection from "./components/FAQSection";
-import Footer from "./components/Footer";
-import AIBankingSection from "./components/AiBankingSection";
-import ClickSpark from "./components/reactbits/ClickSpark";
-import Waves from "./components/reactbits/Waves";
-import Squares from "./components/reactbits/Squares";
+import LoginPage from "./components/Pages/LoginPage"; // Adjust path if needed
+import SignupPage from "./components/Pages/SignupPage"; // Adjust path if needed
+import LandingPage from "./components/Pages/LandingPage"; // Adjust path if needed
+import Home from "./components/Pages/HomePage"; // Adjust path if needed
+import ProfilePage from "./components/Pages/ProfilePage"; // Adjust path if needed
 
-import LoginPage from "./components/Pages/LoginPage"; // Ensure this path is correct
-import SignupPage from "./components/Pages/SignupPage"; // Ensure this path is correct
 import { LanguageProvider } from './context/LanguageContext';
 import "./App.css";
 import "./index.css";
-
 
 function App() {
   return (
@@ -27,31 +17,11 @@ function App() {
       <div>
         <Navbar />
         <Routes>
-          <Route path="/login" element={<LoginPage />} /> 
-          <Route path="/signup" element={<SignupPage />} />
-          <Route
-            path="/"
-            element={
-              <>
-                <ClickSpark />
-                <Herosection />
-                <FeatureSectionWithAI />
-                <ChatApp />
-                <Carousel />
-                <LoanServicesSection />
-                <CreditCardSection />
-                <AIBankingSection />
-                <FAQSection />
-                <Footer />
-                <Squares />
-                
-                {/* <Waves /> */}
-                {/* <LineDataset /> */}
-                {/* <VariableProximity /> */}
-
-              </>
-            }
-          />
+          <Route path="/" element={<LandingPage />} /> {/* Landing Page */}
+          <Route path="/home" element={<Home />} /> {/* Home Page */}
+          <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
+          <Route path="/signup" element={<SignupPage />} /> {/* Signup Page */}
+          <Route path="/profile" element={<ProfilePage />} /> {/* Signup Page */}
         </Routes>
       </div>
     </LanguageProvider>

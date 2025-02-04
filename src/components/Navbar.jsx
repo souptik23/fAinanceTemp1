@@ -29,7 +29,7 @@ const Navbar = () => {
             className="w-12 h-12 object-contain"
           />
           <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-            BankBandhu
+            Debu
           </span>
         </div>
 
@@ -41,7 +41,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex space-x-6 items-center">
           {[
-            { name: t.home, link: "/" },
+            { name: t.home, link: "/home" },
             { name: t.features, link: "/features" },
             { name: t.aiBanking, link: "/ai-banking" },
             { name: t.support, link: "/support" },
@@ -117,7 +117,7 @@ const Navbar = () => {
             >
               {/* Search Section - Mobile */}
               <div className="mb-4">
-                <FreeSoloCreateOption />
+                {/* <FreeSoloCreateOption /> */}
               </div>
 
               {/* Mobile Navigation Links */}
