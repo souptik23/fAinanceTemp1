@@ -8,6 +8,10 @@ export default defineConfig({
   server: {
     historyApiFallback: true, // ✅ Ensures React Router handles navigation properly
   },
+  server: {
+    host: '0.0.0.0', // Expose on all available network interfaces
+    port: 5173, // Or any other port you're using
+  },
   theme: {
     extend: {
       backdropBlur: { 
@@ -18,4 +22,5 @@ export default defineConfig({
       },
     },
   },
+  
 });

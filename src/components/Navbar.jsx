@@ -29,7 +29,7 @@ const Navbar = () => {
             className="w-12 h-12 object-contain"
           />
           <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-            Debu
+            fAInances
           </span>
         </div>
 
@@ -44,7 +44,7 @@ const Navbar = () => {
             { name: t.home, link: "/home" },
             { name: t.features, link: "/features" },
             { name: t.aiBanking, link: "/ai-banking" },
-            { name: t.support, link: "/support" },
+            { name: t.profile, link: "/profile" },
             { name: t.login, link: "/login" },
             { name: t.signup, link: "/signup" },
           ].map((item, index) => (
