@@ -237,18 +237,27 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-              className={`bg-gradient-to-br from-violet-900/40 to-purple-900/40 backdrop-blur-xl rounded-xl p-6 border ${colorScheme.border} hover:border-violet-400/50 transition-all cursor-pointer relative overflow-hidden group`}
+              className={`
+                bg-gradient-to-br from-violet-800/70 to-purple-900/70 
+                backdrop-blur-xl rounded-xl p-6 
+                border ${colorScheme.border} 
+                hover:border-violet-400 
+                transition-all cursor-pointer 
+                relative overflow-hidden group
+                shadow-lg shadow-violet-900/30
+                hover:shadow-xl hover:shadow-violet-800/40
+              `}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-500/30 to-purple-500/30 opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
               <div className="flex items-start gap-4 relative z-10">
-                <div className="bg-violet-500/20 p-3 rounded-lg ring-2 ring-violet-500/20 group-hover:ring-violet-400/40 transition-all">
+                <div className="bg-violet-400/30 p-3 rounded-lg ring-2 ring-violet-400/30 group-hover:ring-violet-300 group-hover:bg-violet-400/40 transition-all">
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className={`text-lg font-semibold mb-2 ${colorScheme.text} group-hover:text-violet-300 transition-colors`}>
+                  <h3 className={`text-lg font-semibold mb-2 text-violet-100 group-hover:text-white transition-colors`}>
                     {feature.title}
                   </h3>
-                  <p className={`${colorScheme.text}/80 text-sm leading-relaxed`}>
+                  <p className="text-violet-200/90 text-sm leading-relaxed group-hover:text-violet-100">
                     {feature.description}
                   </p>
                 </div>
@@ -259,42 +268,59 @@ const LandingPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className={`bg-violet-950/50 backdrop-blur-lg border-t ${colorScheme.border}`}>
+      <footer className={`bg-gradient-to-b from-violet-900/70 to-purple-900/70 backdrop-blur-lg border-t ${colorScheme.border} text-gray-200`}>
         <div className="container mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Brand Info */}
             <div>
-              <h3 className={`text-2xl font-bold ${colorScheme.text} mb-4`}>
-                fAInance
-              </h3>
-              <p className={`${colorScheme.text}/80`}>Transforming banking with AI</p>
+              <h3 className="text-2xl font-bold text-white mb-4">fAInance</h3>
+              <p className="text-gray-300">Transforming banking with AI</p>
+              <div className="mt-4 flex space-x-4">
+                {/* Social Icons (Example) */}
+                <a href="#" className="hover:text-violet-400"><i className="fab fa-facebook-f"></i></a>
+                <a href="#" className="hover:text-violet-400"><i className="fab fa-twitter"></i></a>
+                <a href="#" className="hover:text-violet-400"><i className="fab fa-linkedin-in"></i></a>
+                <a href="#" className="hover:text-violet-400"><i className="fab fa-instagram"></i></a>
+              </div>
             </div>
-            {/* Footer Links */}
+
+            {/* Company */}
             <div>
-              <h4 className={`text-lg font-semibold ${colorScheme.text} mb-4`}>
-                Company
-              </h4>
+              <h4 className="text-lg font-semibold text-white mb-4">Company</h4>
               <ul className="space-y-2">
-                <li>
-                  <a href="#" className={`${colorScheme.text}/80 hover:text-violet-400`}>
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className={`${colorScheme.text}/80 hover:text-violet-400`}>
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className={`${colorScheme.text}/80 hover:text-violet-400`}>
-                    Press
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-violet-400">About</a></li>
+                <li><a href="#" className="hover:text-violet-400">Careers</a></li>
+                <li><a href="#" className="hover:text-violet-400">Press</a></li>
+                <li><a href="#" className="hover:text-violet-400">Blog</a></li>
               </ul>
             </div>
-            {/* Add more footer sections as needed */}
+
+            {/* Products & Services */}
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Products</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-violet-400">AI Banking</a></li>
+                <li><a href="#" className="hover:text-violet-400">Smart Loans</a></li>
+                <li><a href="#" className="hover:text-violet-400">Fraud Detection</a></li>
+                <li><a href="#" className="hover:text-violet-400">Financial Planning</a></li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-4">Resources</h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-violet-400">Help Center</a></li>
+                <li><a href="#" className="hover:text-violet-400">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-violet-400">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-violet-400">Security</a></li>
+              </ul>
+            </div>
           </div>
+
+          {/* Copyright Section */}
           <div className={`border-t ${colorScheme.border} mt-12 pt-8`}>
-            <p className={`text-center ${colorScheme.text}/80`}>
+            <p className="text-center text-gray-400">
               © 2025 fAInance™. All rights reserved.
             </p>
           </div>
