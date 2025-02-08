@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from "@react-three/drei";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 
@@ -13,27 +11,34 @@ const CreditCardSection = () => {
   const [cardBackground, setCardBackground] = useState("");
   const [cardTypeDisplay, setCardTypeDisplay] = useState("Premium Rewards Card");
   const [customUploadVisible, setCustomUploadVisible] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
-  const styles = {
+  // Predefined skins with online image URLs
+  const predefinedSkins = {
     premium: {
       background: "bg-gradient-to-r from-yellow-600 to-yellow-400",
       text: "Premium Rewards Card",
-      image: null,
+      image: "https://digitalsynopsis.com/wp-content/uploads/2017/07/beautiful-color-ui-gradients-backgrounds-purple-love.png",
     },
     anime: {
-      background: "bg-gradient-to-r from-pink-600 to-purple-400",
+      background: null,
       text: "Anime Collection Card",
-      image: "/assets/anime-theme.jpg",
+      image: "https://cdn.magicdecor.in/com/2023/10/20183405/Naruto-Anime-Wallpaper-for-Walls-M-710x488.jpg",
+    },
+    sports: {
+      background: null,
+      text: "Sports Edition Card",
+      image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BvcnRzJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
     },
     cars: {
-      background: null, // Using 3D model instead
+      background: null,
       text: "Sports Cars Edition",
-      image: null,
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FycyUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
     },
     nature: {
-      background: "bg-gradient-to-r from-green-600 to-emerald-400",
+      background: null,
       text: "Nature Series Card",
-      image: "/assets/nature.jpg",
+      image: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bmF0dXJlJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
     },
     custom: {
       background: "bg-gradient-to-r from-blue-600 to-purple-600",
@@ -48,13 +53,13 @@ const CreditCardSection = () => {
 
   const updateCardStyle = (selectedCardType) => {
     setCardType(selectedCardType);
-    setCardTypeDisplay(styles[selectedCardType].text);
+    setCardTypeDisplay(predefinedSkins[selectedCardType].text);
     setCustomUploadVisible(selectedCardType === "custom");
 
-    if (styles[selectedCardType].image) {
-      setCardBackground(`url('${styles[selectedCardType].image}')`);
+    if (predefinedSkins[selectedCardType].image) {
+      setCardBackground(`url('${predefinedSkins[selectedCardType].image}')`);
     } else {
-      setCardBackground("");
+      setCardBackground(predefinedSkins[selectedCardType].background);
     }
   };
 
@@ -76,6 +81,13 @@ const CreditCardSection = () => {
     }
   };
 
+  const handleCardFlip = () => {
+    setIsFlipped(true); // Flip to the back side
+    setTimeout(() => {
+      setIsFlipped(false); // Flip back to the front side after 3 seconds
+    }, 3000);
+  };
+
   return (
     <section className="relative py-24 overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="container mx-auto px-6">
@@ -93,35 +105,50 @@ const CreditCardSection = () => {
                 Choose from exclusive designs or upload your own image.
               </p>
 
-              {/* Conditional Rendering for 3D or 2D Card */}
-              {true ? (
-                <div className="w-[450px] h-[250px] mx-auto">
-                  <Canvas camera={{ position: [0, 0, 5] }}>
-                    <OrbitControls enableZoom={false} target={[0, 0, 0]} />
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[2, 2, 5]} intensity={2} />
-                    <CreditCard3D cardHolderName={cardHolderName} />
-                  </Canvas>
-                </div>
-              ) : (
+              {/* 2D Card Design with Flip Animation */}
+              <div
+                className={`w-96 h-56 mx-auto perspective-1000 cursor-pointer ${
+                  isFlipped ? "rotate-y-180" : ""
+                }`}
+                onClick={handleCardFlip}
+              >
                 <div
-                  className="relative w-96 h-56 mx-auto bg-cover bg-center rounded-2xl shadow-2xl"
-                  style={{
-                    backgroundImage: cardBackground
-                      ? cardBackground
-                      : undefined,
-                  }}
+                  className={`relative w-full h-full transform-style-preserve-3d transition-transform duration-500 ${
+                    isFlipped ? "rotate-y-180" : ""
+                  }`}
                 >
-                  <div className="absolute inset-0 bg-black/30 rounded-2xl flex flex-col justify-end p-4 text-white">
-                    <div className="text-xl font-mono">**** **** **** 1234</div>
-                    <div className="flex justify-between">
-                      <span>{cardHolderName}</span>
-                      <span>MM/YY</span>
+                  {/* Front Side of the Card */}
+                  <div
+                    className="absolute w-full h-full bg-cover bg-center rounded-2xl shadow-2xl flex flex-col justify-end p-4 text-white"
+                    style={{
+                      backgroundImage: cardBackground,
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-black/30 rounded-2xl"></div>
+                    <div className="relative z-10">
+                      <div className="text-xl font-mono">**** **** **** 1234</div>
+                      <div className="flex justify-between">
+                        <span>{cardHolderName}</span>
+                        <span>12/25</span>
+                      </div>
+                      <div className="text-sm font-medium">{cardTypeDisplay}</div>
                     </div>
-                    <div className="text-sm font-medium">{cardTypeDisplay}</div>
+                  </div>
+
+                  {/* Back Side of the Card (CVV Side) */}
+                  <div
+                    className="absolute w-full h-full bg-gray-800 rounded-2xl shadow-2xl transform rotate-y-180 backface-hidden"
+                  >
+                    <div className="w-full h-full p-4 flex flex-col justify-between">
+                      <div className="w-full h-8 bg-gray-700 rounded-lg"></div>
+                      <div className="text-right text-white">
+                        <div className="text-sm">CVV</div>
+                        <div className="text-xl font-mono">***</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
 
@@ -152,6 +179,7 @@ const CreditCardSection = () => {
                   >
                     <option value="premium">Classic Premium</option>
                     <option value="anime">Anime Collection</option>
+                    <option value="sports">Sports Edition</option>
                     <option value="cars">Sports Cars</option>
                     <option value="nature">Nature Series</option>
                     <option value="custom">Custom Design</option>
@@ -181,25 +209,6 @@ const CreditCardSection = () => {
       </div>
     </section>
   );
-};
-
-const CreditCard3D = ({ cardHolderName }) => {
-  const { scene } = useGLTF("/credit-card-3d.glb");
-
-  useEffect(() => {
-    // Find the text mesh named "johnwhite" in the GLTF scene
-    const textMesh = scene.getObjectByName("john white");
-    if (textMesh) {
-      // Update the text geometry or material here
-      textMesh.material = new THREE.MeshBasicMaterial({ color: 0xffffff }); // Example: Change material color
-      textMesh.geometry = new THREE.TextGeometry(cardHolderName, {
-        size: 0.5,
-        height: 0.1,
-      }); // Example: Update text geometry
-    }
-  }, [cardHolderName, scene]);
-
-  return <primitive object={scene} scale={2.5} position={[0, 0, 0]} />;
 };
 
 export default CreditCardSection;

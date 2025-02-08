@@ -1,219 +1,305 @@
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import { useNavigate } from "react-router-dom";
-// import SplineSceneCoin from "../Elements/SplineSceneCoin";
-// import SplineSceneCoin from "../Elements/SplineSceneCoin";
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import {
   ChevronRight,
-  Shield,
+  Brain,
+  ShieldAlert,
   Users,
-  Lightbulb,
-  PieChart,
-  ArrowRight,
+  Languages,
+  Trophy,
+  LineChart,
+  MessageSquare,
+  Fingerprint,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import SplineScene from "../Elements/SplineScene";
 
-const FeatureCard = ({ title, description, icon }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    className="bg-white/5 backdrop-blur-lg rounded-xl p-6 hover:bg-white/10 transition-all cursor-pointer"
-  >
-    <div className="flex items-start gap-4">
-      <div className="bg-purple-500/10 p-3 rounded-lg">{icon}</div>
-      <div>
-        <h3 className="text-lg font-semibold mb-2 text-white">{title}</h3>
-        <p className="text-gray-300 text-sm leading-relaxed">{description}</p>
-      </div>
-    </div>
-  </motion.div>
-);
-
-const TestimonialCard = ({ name, role, content, avatarUrl }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    className="bg-white/5 backdrop-blur-lg rounded-xl p-6"
-  >
-    <p className="text-gray-300 mb-4">"{content}"</p>
-    <div className="flex items-center gap-3">
-      <img src={avatarUrl} alt={name} className="w-10 h-10 rounded-full" />
-      <div>
-        <h4 className="font-medium text-white">{name}</h4>
-        <p className="text-sm text-gray-400">{role}</p>
-      </div>
-    </div>
-  </motion.div>
-);
+// Color schemes for different types of color blindness
+const colorSchemes = {
+  default: {
+    primary: "from-violet-600 to-purple-600",
+    secondary: "bg-violet-800/30",
+    text: "text-violet-200",
+    hover: "hover:bg-violet-700/40",
+    background: "bg-gradient-to-b from-gray-900 via-violet-950 to-purple-950",
+    border: "border-violet-500/20",
+    gradient: "from-violet-600/30 to-purple-600/30",
+  },
+  protanopia: {
+    primary: "from-blue-600 to-teal-600",
+    secondary: "bg-blue-800/30",
+    text: "text-blue-200",
+    hover: "hover:bg-blue-700/40",
+    background: "bg-gradient-to-b from-gray-900 via-blue-950 to-teal-950",
+    border: "border-blue-500/20",
+    gradient: "from-blue-600/30 to-teal-600/30",
+  },
+  deuteranopia: {
+    primary: "from-green-600 to-yellow-600",
+    secondary: "bg-green-800/30",
+    text: "text-green-200",
+    hover: "hover:bg-green-700/40",
+    background: "bg-gradient-to-b from-gray-900 via-green-950 to-yellow-950",
+    border: "border-green-500/20",
+    gradient: "from-green-600/30 to-yellow-600/30",
+  },
+  tritanopia: {
+    primary: "from-pink-600 to-orange-600",
+    secondary: "bg-pink-800/30",
+    text: "text-pink-200",
+    hover: "hover:bg-pink-700/40",
+    background: "bg-gradient-to-b from-gray-900 via-pink-950 to-orange-950",
+    border: "border-pink-500/20",
+    gradient: "from-pink-600/30 to-orange-600/30",
+  },
+};
 
 const LandingPage = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900/90 via-purple-900/90 to-indigo-900/90">
-      {/* Hero Section */}
-      {/* <SplineSceneCoin /> */}
-      {/* <ErrorBoundary>
-        <SplineSceneCoin />
-      </ErrorBoundary> */}
+  const [colorScheme, setColorScheme] = useState(colorSchemes.default);
 
-      <div
-        className="container mx-auto px-6 pt-32 pb-20 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('https://source.unsplash.com/1600x900/?banking,finance')`,
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="flex items-center gap-2 bg-white/5 backdrop-blur-lg w-fit px-4 py-2 rounded-full mb-6">
-              <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
-              <span className="text-purple-400 text-sm">
-                AI-Powered Banking Platform
-              </span>
-            </div>
-            <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
-              Unlock Your Business Potential with Xenon Bank 🚀
-            </h1>
-            <p className="text-gray-300 text-lg mb-8">
-              Experience the future of banking with our AI-driven solutions.
-              Smart, secure, and tailored to your needs.
-            </p>
-            <div className="flex gap-4">
-              <Link
-                to="/signup" // Specify the route to navigate to
-                className="bg-purple-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-600 transition-colors flex items-center gap-2"
+  // Update the color scheme for the entire page
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--primary-gradient",
+      colorScheme.primary
+    );
+    document.documentElement.style.setProperty(
+      "--secondary-bg",
+      colorScheme.secondary
+    );
+    document.documentElement.style.setProperty("--text-color", colorScheme.text);
+    document.documentElement.style.setProperty("--hover-bg", colorScheme.hover);
+    document.documentElement.style.setProperty(
+      "--background-gradient",
+      colorScheme.background
+    );
+    document.documentElement.style.setProperty("--border-color", colorScheme.border);
+    document.documentElement.style.setProperty(
+      "--gradient-overlay",
+      colorScheme.gradient
+    );
+  }, [colorScheme]);
+
+  const handleColorSchemeChange = (scheme) => {
+    setColorScheme(colorSchemes[scheme]);
+  };
+
+  const features = [
+    {
+      title: "Explainable AI",
+      description:
+        "Transparent AI decision-making with detailed insights into system operations.",
+      icon: <Brain className="w-6 h-6" />,
+    },
+    {
+      title: "Fraud Detection",
+      description: "Real-time fraud prevention using advanced AI algorithms.",
+      icon: <ShieldAlert className="w-6 h-6" />,
+    },
+    {
+      title: "Smart Recommendations",
+      description: "Personalized financial advice powered by machine learning.",
+      icon: <Users className="w-6 h-6" />,
+    },
+    {
+      title: "Multilingual Support",
+      description:
+        "Banking services in multiple languages for global accessibility.",
+      icon: <Languages className="w-6 h-6" />,
+    },
+    {
+      title: "Gamified Experience",
+      description: "Earn rewards while managing your finances effectively.",
+      icon: <Trophy className="w-6 h-6" />,
+    },
+    {
+      title: "Real-time Analytics",
+      description: "Live tracking of your financial metrics and performance.",
+      icon: <LineChart className="w-6 h-6" />,
+    },
+    {
+      title: "AI Chat Assistant",
+      description: "24/7 intelligent support for all your banking needs.",
+      icon: <MessageSquare className="w-6 h-6" />,
+    },
+    {
+      title: "Biometric Security",
+      description: "Advanced security with fingerprint and face recognition.",
+      icon: <Fingerprint className="w-6 h-6" />,
+    },
+  ];
+
+  return (
+    <div className={`min-h-screen ${colorScheme.background}`}>
+      {/* Color Blindness Dropdown */}
+      <div className="fixed top-4 right-4 z-50 mt-20">
+        <select
+          onChange={(e) => handleColorSchemeChange(e.target.value)}
+          className="p-2 rounded-lg bg-violet-800/30 backdrop-blur-lg text-violet-200 border border-violet-500/20"
+        >
+          <option value="default">Default</option>
+          <option value="protanopia">Protanopia</option>
+          <option value="deuteranopia">Deuteranopia</option>
+          <option value="tritanopia">Tritanopia</option>
+        </select>
+      </div>
+
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+
+      {/* Hero Section */}
+      <div className="relative">
+        <div className={`absolute inset-0 bg-gradient-to-r ${colorScheme.gradient} backdrop-blur-3xl`} />
+        <div className="container mx-auto px-6 pt-32 pb-20 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className={`flex items-center gap-2 ${colorScheme.secondary} backdrop-blur-lg w-fit px-4 py-2 rounded-full mb-6`}
               >
-                Get Started <ChevronRight className="w-4 h-4" />
-              </Link>
-              <button className="bg-white/10 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/20 transition-colors">
-                Learn More
-              </button>
+                <span className="w-2 h-2 bg-violet-400 rounded-full animate-pulse" />
+                <span className={`${colorScheme.text} text-sm`}>
+                  AI-Powered Banking Platform
+                </span>
+              </motion.div>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="text-6xl font-bold text-white mb-6 leading-tight"
+              >
+                Transform Your Banking Experience with{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-purple-400">
+                  AI Intelligence
+                </span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className={`${colorScheme.text} text-lg mb-8`}
+              >
+                Experience the future of banking with our AI-driven solutions.
+                Smart, secure, and perfectly tailored to your financial needs.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="flex justify-center gap-4"
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-8 py-4 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 bg-gradient-to-r ${colorScheme.primary} text-white`}
+                >
+                  Get Started <ChevronRight className="w-5 h-5" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-8 py-4 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 ${colorScheme.secondary} ${colorScheme.text} ${colorScheme.hover}`}
+                >
+                  Learn More
+                </motion.button>
+              </motion.div>
             </div>
-          </div>
-          <div className="relative"></div>
+          </motion.div>
         </div>
       </div>
 
       {/* Features Section */}
-      <div className="container mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Empower Your Business with Our Cutting-Edge Features
+      <div className="container mx-auto px-6 py-20 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className={`text-4xl font-bold ${colorScheme.text} mb-4`}>
+            Cutting-Edge Features for Modern Banking
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Our AI-powered platform provides comprehensive tools for bias
-            detection, transparent decision-making, and personalized financial
-            guidance.
+          <p className={`${colorScheme.text}/80 max-w-2xl mx-auto`}>
+            Our AI-powered platform provides comprehensive tools for secure,
+            efficient, and personalized banking experience.
           </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FeatureCard
-            title="Bias Detection & Mitigation"
-            description="Advanced AI algorithms to detect and prevent biases in financial decisions, ensuring fair treatment for all customers."
-            icon={<Shield className="w-6 h-6 text-purple-400" />}
-          />
-          <FeatureCard
-            title="Explainable AI System"
-            description="Transparent decision-making process with detailed explanations for all AI-driven financial recommendations."
-            icon={<Lightbulb className="w-6 h-6 text-purple-400" />}
-          />
-          <FeatureCard
-            title="Personalized Financial Advice"
-            description="AI-powered insights and recommendations tailored to your unique financial situation and goals."
-            icon={<Users className="w-6 h-6 text-purple-400" />}
-          />
-          <FeatureCard
-            title="Advanced Analytics Dashboard"
-            description="Comprehensive analytics and reporting tools to track your financial health and progress."
-            icon={<PieChart className="w-6 h-6 text-purple-400" />}
-          />
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+              className={`bg-gradient-to-br from-violet-900/40 to-purple-900/40 backdrop-blur-xl rounded-xl p-6 border ${colorScheme.border} hover:border-violet-400/50 transition-all cursor-pointer relative overflow-hidden group`}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="flex items-start gap-4 relative z-10">
+                <div className="bg-violet-500/20 p-3 rounded-lg ring-2 ring-violet-500/20 group-hover:ring-violet-400/40 transition-all">
+                  {feature.icon}
+                </div>
+                <div>
+                  <h3 className={`text-lg font-semibold mb-2 ${colorScheme.text} group-hover:text-violet-300 transition-colors`}>
+                    {feature.title}
+                  </h3>
+                  <p className={`${colorScheme.text}/80 text-sm leading-relaxed`}>
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      {/* Social Proof Section */}
-      <div className="container mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Our Positive Social Impact
-          </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            Join thousands of businesses that have transformed their financial
-            operations with our platform. 👏
-          </p>
+      {/* Footer */}
+      <footer className={`bg-violet-950/50 backdrop-blur-lg border-t ${colorScheme.border}`}>
+        <div className="container mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className={`text-2xl font-bold ${colorScheme.text} mb-4`}>
+                fAInance
+              </h3>
+              <p className={`${colorScheme.text}/80`}>Transforming banking with AI</p>
+            </div>
+            {/* Footer Links */}
+            <div>
+              <h4 className={`text-lg font-semibold ${colorScheme.text} mb-4`}>
+                Company
+              </h4>
+              <ul className="space-y-2">
+                <li>
+                  <a href="#" className={`${colorScheme.text}/80 hover:text-violet-400`}>
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className={`${colorScheme.text}/80 hover:text-violet-400`}>
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className={`${colorScheme.text}/80 hover:text-violet-400`}>
+                    Press
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {/* Add more footer sections as needed */}
+          </div>
+          <div className={`border-t ${colorScheme.border} mt-12 pt-8`}>
+            <p className={`text-center ${colorScheme.text}/80`}>
+              © 2025 fAInance™. All rights reserved.
+            </p>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <TestimonialCard
-            name="Sarah Chen"
-            role="Small Business Owner"
-            content="The AI-driven insights have completely transformed how I manage my business finances. 💻"
-            avatarUrl="https://i.pravatar.cc/40?img=1"
-          />
-          <TestimonialCard
-            name="James Wilson"
-            role="Startup Founder"
-            content="The transparent decision-making process has made banking much more accessible and trustworthy. 📊"
-            avatarUrl="https://i.pravatar.cc/40?img=2"
-          />
-          <TestimonialCard
-            name="Maria Garcia"
-            role="Finance Director"
-            content="The bias detection features ensure fair treatment for all our customers. It's revolutionary. 🌟"
-            avatarUrl="https://i.pravatar.cc/40?img=3"
-          />
-        </div>
-      </div>
-
-      {/* Awards Section */}
-      <div className="container mx-auto px-6 py-20 border-t border-white/10">
-        <div className="flex flex-wrap justify-center gap-12 items-center">
-          <img
-            src="https://picsum.photos/120/60?random=1"
-            alt="Award 1"
-            className="opacity-50 hover:opacity-100 transition-opacity"
-          />
-          <img
-            src="https://picsum.photos/120/60?random=2"
-            alt="Award 2"
-            className="opacity-50 hover:opacity-100 transition-opacity"
-          />
-          <img
-            src="https://picsum.photos/120/60?random=3"
-            alt="Award 3"
-            className="opacity-50 hover:opacity-100 transition-opacity"
-          />
-          <img
-            src="https://picsum.photos/120/60?random=4"
-            alt="Award 4"
-            className="opacity-50 hover:opacity-100 transition-opacity"
-          />
-        </div>
-      </div>
-
-      {/* Additional Section - Customer Support */}
-      <div className="container mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            24/7 Customer Support
-          </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
-            We're here to help you every step of the way. Reach out anytime! 📞
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FeatureCard
-            title="Live Chat Support"
-            description="Get instant assistance through our live chat support system."
-            icon={<ArrowRight className="w-6 h-6 text-purple-400" />}
-          />
-          <FeatureCard
-            title="Email Support"
-            description="Send us an email and we'll get back to you as soon as possible."
-            icon={<ArrowRight className="w-6 h-6 text-purple-400" />}
-          />
-        </div>
-      </div>
+      </footer>
     </div>
   );
 };

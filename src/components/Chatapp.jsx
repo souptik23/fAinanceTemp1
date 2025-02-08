@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-const ChatApp = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const ChatApp = ({ isOpen, setIsOpen }) => {
   const [messages, setMessages] = useState([
     { sender: "ai", text: "👋 Welcome! I'm your banking assistant. How can I help you today?" },
   ]);

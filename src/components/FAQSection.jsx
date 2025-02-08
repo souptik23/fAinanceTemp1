@@ -4,11 +4,10 @@ import { translations } from '../translations';
 import { MessageCircle, Search, X, ChevronDown, ExternalLink } from 'lucide-react';
 import ChatApp from './Chatapp';
 
-const FAQSection = () => {
+const FAQSection = ({ setChatAppOpen }) => { // Receive setChatAppOpen as a prop
   const { language } = useLanguage();
   const t = translations[language];
   const [openFAQ, setOpenFAQ] = useState(null);
-  const [showChatbot, setShowChatbot] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
@@ -42,14 +41,14 @@ const FAQSection = () => {
       faq.question.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredFAQs(filtered);
-  }, [searchQuery]);
+  }, [searchQuery, t]);
 
   const toggleFAQ = (index) => {
     setOpenFAQ(openFAQ === index ? null : index);
   };
 
   return (
-    <div className="max-w-[85rem] px-4 py-16 sm:px-6 lg:px-8 mx-auto relative overflow-hidden bg-gray-900 min-h-screen">
+    <div className="max-w-screen  px-4 py-16 sm:px-6 lg:px-8 mx-auto relative overflow-hidden bg-gray-900 min-h-screen">
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -121,31 +120,13 @@ const FAQSection = () => {
       {/* Enhanced "Still Have Questions" Section */}
       <div className="mt-16 text-center">
         <button
-          onClick={() => setShowChatbot(true)}
+          onClick={() => setChatAppOpen(true)} // Call setChatAppOpen(true)
           className="inline-flex items-center gap-3 bg-indigo-600 hover:bg-indigo-700 px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105"
         >
           <MessageCircle className="w-5 h-5 text-white animate-bounce" />
-          <span className="text-white font-medium">Chat with our AI Assistant</span>
+          <span className="text-white font-medium">{t.stillQuestions} Chat with our AI Assistant</span>
         </button>
       </div>
-
-      {/* Chatbot Modal */}
-      {showChatbot && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-gray-900 p-6 rounded-2xl w-full max-w-2xl mx-4 shadow-2xl border border-gray-700">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-white">Chat with AI Assistant</h3>
-              <button
-                onClick={() => setShowChatbot(false)}
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <X size={24} />
-              </button>
-            </div>
-            <ChatApp />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

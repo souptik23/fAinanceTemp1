@@ -41,9 +41,9 @@ export const translations = {
     estimatedMonthlyPayment: "Estimated Monthly Payment",
 
     // Credit Card Section
-    designYourCard: "Design Your Perfect Credit Card",
+    designYourCard: "Design Your Perfect Gift Card",
     createPersonalized:
-      "Create a personalized credit card that matches your style",
+      "Create a personalized gift card that matches your style",
     cardTheme: "Card Theme",
     fullName: "Full Name",
     createMyCard: "Create My Card",
@@ -61,6 +61,12 @@ export const translations = {
     everythingYouNeed: "Everything you need to know about our banking services",
     stillQuestions: "Still have questions?",
     contactSupport: "Contact our support team",
+    
+    // Footer Section
+    about: "About",
+    privacyPolicy: "Privacy Policy",
+    licensing: "Licensing",
+    contact: "Contact",
 
     // FAQ Questions & Answers
     cancelAnytime: "Can I cancel at anytime?",
@@ -139,24 +145,38 @@ export const translations = {
     stillQuestions: "இன்னும் கேள்விகள் உள்ளதா?",
     contactSupport: "எங்கள் ஆதரவு குழுவைத் தொடர்பு கொள்ளவும்",
 
+    // Footer Section
+    about: "பற்றி",
+    privacyPolicy: "தனியுரிமைக் கொள்கை",
+    licensing: "உரிமம்",
+    contact: "தொடர்பு",
+
     // FAQ Questions & Answers
     cancelAnytime: "நான் எப்போது வேண்டுமானாலும் ரத்து செய்யலாமா?",
     cancelAnytimeAnswer:
       "ஆம், நீங்கள் எப்போது வேண்டுமானாலும் ரத்து செய்யலாம். எந்த கேள்விகளும் கேட்கப்படாது!",
-    // ... add other Tamil FAQ translations
+    platformSecurity: "உங்கள் தளம் எவ்வளவு பாதுகாப்பானது?",
+    platformSecurityAnswer:
+      "உங்கள் தரவைப் பாதுகாப்பாக வைத்திருக்க நாங்கள் வங்கி-தர பாதுகாப்பைப் பயன்படுத்துகிறோம்.",
+    accessAccount: "எனது கணக்கை நான் எப்படி அணுகுவது?",
+    accessAccountAnswer:
+      "உங்கள் சான்றுகளைப் பயன்படுத்தி எங்கள் பாதுகாப்பான போர்டல் மூலம் உள்நுழையவும்.",
+    transferLimits: "பரிமாற்ற வரம்புகள் என்ன?",
+    transferLimitsAnswer:
+      "பரிமாற்ற வரம்புகள் கணக்கு வகையைப் பொறுத்து மாறுபடும்.",
   },
   Hindi: {
     // Navbar
     home: "होम",
     features: "फीचर्स",
     aiBanking: "एआई बैंकिंग",
-    profile: "सहायता",
+    profile: "प्रोफ़ाइल",
     login: "लॉग इन",
     signup: "साइन अप",
     search: "खोजें",
 
     // Hero Section
-    nextGenBanking: "नई पीढ़ी की बैंकिंग",
+    nextGenBanking: "नेक्स्ट-जेन बैंकिंग",
     poweredByAI: "एआई द्वारा संचालित",
     heroDescription:
       "हमारे एआई-संचालित समाधानों के साथ बैंकिंग के भविष्य का अनुभव करें, जो व्यक्तिगत जानकारी, बेहतर सुरक्षा और सहज लेनदेन प्रदान करते हैं।",
@@ -208,43 +228,57 @@ export const translations = {
     stillQuestions: "अभी भी प्रश्न हैं?",
     contactSupport: "हमारी सहायता टीम से संपर्क करें",
 
+    // Footer Section
+    about: "के बारे में",
+    privacyPolicy: "गोपनीयता नीति",
+    licensing: "लाइसेंसिंग",
+    contact: "संपर्क",
+
     // FAQ Questions & Answers
     cancelAnytime: "क्या मैं कभी भी रद्द कर सकता हूं?",
     cancelAnytimeAnswer:
       "हां, आप कभी भी रद्द कर सकते हैं। कोई सवाल नहीं पूछा जाएगा!",
-    // ... add other Hindi FAQ translations
+    platformSecurity: "आपका प्लेटफ़ॉर्म कितना सुरक्षित है?",
+    platformSecurityAnswer:
+      "हम आपके डेटा को सुरक्षित रखने के लिए बैंक-ग्रेड सुरक्षा का उपयोग करते हैं।",
+    accessAccount: "मैं अपने खाते तक कैसे पहुंचूं?",
+    accessAccountAnswer:
+      "अपने क्रेडेंशियल्स का उपयोग करके हमारे सुरक्षित पोर्टल के माध्यम से लॉग इन करें।",
+    transferLimits: "स्थानांतरण सीमाएं क्या हैं?",
+    transferLimitsAnswer:
+      "स्थानांतरण सीमाएं खाता प्रकार के अनुसार भिन्न होती हैं।",
   },
   Bengali: {
     // Navbar
     home: "হোম",
     features: "বৈশিষ্ট্য",
     aiBanking: "এআই ব্যাংকিং",
-    profile: "সহায়তা",
-    login: "লগ ইন",
+    profile: "প্রোফাইল",
+    login: "লগইন",
     signup: "সাইন আপ",
-    search: "অনুসন্ধান করুন",
+    search: "অনুসন্ধান",
 
     // Hero Section
     nextGenBanking: "নেক্সট-জেন ব্যাংকিং",
     poweredByAI: "এআই দ্বারা চালিত",
     heroDescription:
-      "আমাদের এআই-চালিত সমাধানগুলির সাথে ব্যাংকিংয়ের ভবিষ্যতের অভিজ্ঞতা নিন, যা ব্যক্তিগতকৃত অন্তর্দৃষ্টি, উন্নত সুরক্ষা এবং নির্বিঘ্ন লেনদেন প্রদান করে।",
+      "আমাদের এআই-চালিত সমাধানগুলির সাথে ব্যাংকিংয়ের ভবিষ্যত অভিজ্ঞতা নিন, যা ব্যক্তিগতকৃত অন্তর্দৃষ্টি, উন্নত সুরক্ষা এবং অবিরত লেনদেন সরবরাহ করে।",
     openAccount: "এআই অ্যাকাউন্ট খুলুন",
     watchDemo: "ডেমো দেখুন",
 
     // Feature Section
     aiFeatures: "এআই বৈশিষ্ট্য",
     personalizedInsights: "ব্যক্তিগতকৃত অন্তর্দৃষ্টি",
-    seamlessTransactions: "নির্বিঘ্ন লেনদেন",
+    seamlessTransactions: "অবিরত লেনদেন",
     advancedSecurity: "উন্নত সুরক্ষা",
     smartInvestments: "স্মার্ট বিনিয়োগ",
 
     // Loan Services
     smartLoanSolutions: "স্মার্ট ঋণ সমাধান",
     forYourFuture: "আপনার ভবিষ্যতের জন্য",
-    discoverSolutions: "আপনার প্রয়োজন অনুযায়ী আর্থিক সমাধান খুঁজুন",
+    discoverSolutions: "আপনার প্রয়োজন অনুসারে আর্থিক সমাধান খুঁজুন",
     studentLoans: "ছাত্র ঋণ",
-    homeLoans: "বাড়ি ঋণ",
+    homeLoans: "হোম ঋণ",
     healthLoans: "স্বাস্থ্য ঋণ",
     businessLoans: "ব্যবসায় ঋণ",
     loanCalculator: "ঋণ ক্যালকুলেটর",
@@ -257,17 +291,17 @@ export const translations = {
     // Credit Card Section
     designYourCard: "আপনার পারফেক্ট ক্রেডিট কার্ড ডিজাইন করুন",
     createPersonalized:
-      "একটি ব্যক্তিগতকৃত ক্রেডিট কার্ড তৈরি করুন যা আপনার স্টাইলের সাথে মেলে",
+      "একটি ব্যক্তিগতকৃত ক্রেডিট কার্ড তৈরি করুন যা আপনার শৈলীর সাথে মিলে যায়",
     cardTheme: "কার্ড থিম",
     fullName: "পুরো নাম",
     createMyCard: "আমার কার্ড তৈরি করুন",
 
     // AI Banking Section
     nextGenAiBanking: "নেক্সট-জেন এআই ব্যাংকিং",
-    smartAccountManagement: "স্মার্ট অ্যাকাউন্ট ম্যানেজমেন্ট",
+    smartAccountManagement: "স্মার্ট অ্যাকাউন্ট ব্যবস্থাপনা",
     enhancedSecurity: "উন্নত সুরক্ষা",
     smartInvestments: "স্মার্ট বিনিয়োগ",
-    aiSupport: "24/7 এআই সমর্থন",
+    aiSupport: "24/7 এআই সহায়তা",
 
     // FAQ Section
     faqTitle: "প্রায়শই জিজ্ঞাসিত প্রশ্ন",
@@ -275,20 +309,26 @@ export const translations = {
     everythingYouNeed:
       "আমাদের ব্যাংকিং পরিষেবা সম্পর্কে আপনার যা কিছু জানা দরকার",
     stillQuestions: "এখনও প্রশ্ন আছে?",
-    contactSupport: "আমাদের সহায়তা দল সাথে যোগাযোগ করুন",
+    contactSupport: "আমাদের সহায়তা দলের সাথে যোগাযোগ করুন",
+
+    // Footer Section
+    about: "সম্পর্কে",
+    privacyPolicy: "গোপনীয়তা নীতি",
+    licensing: "লাইসেন্সিং",
+    contact: "যোগাযোগ",
 
     // FAQ Questions & Answers
-    cancelAnytime: "আমি কি যেকোন সময় বাতিল করতে পারি?",
+    cancelAnytime: "আমি কি যে কোনও সময় বাতিল করতে পারি?",
     cancelAnytimeAnswer:
-      "হ্যাঁ, আপনি যেকোন সময় বাতিল করতে পারেন। কোন প্রশ্ন ছাড়াই!",
-    platformSecurity: "আপনার প্ল্যাটফর্ম কতটা নিরাপদ?",
+      "হ্যাঁ, আপনি যে কোনও সময় বাতিল করতে পারেন। কোনও প্রশ্ন করা হবে না!",
+    platformSecurity: "আপনার প্ল্যাটফর্ম কতটা সুরক্ষিত?",
     platformSecurityAnswer:
-      "আমরা ব্যাংক-গ্রেড সুরক্ষা ব্যবহার করি যাতে 256-বিট এনক্রিপশন এবং অবিচ্ছিন্ন পর্যবেক্ষণ রয়েছে আপনার ডেটা সুরক্ষিত রাখতে।",
-    accessAccount: "আমি কিভাবে আমার অ্যাকাউন্ট অ্যাক্সেস করব?",
+      "আমরা আপনার ডেটা সুরক্ষিত রাখতে ব্যাংক-গ্রেড সুরক্ষা ব্যবহার করি।",
+    accessAccount: "আমি কীভাবে আমার অ্যাকাউন্টে প্রবেশ করব?",
     accessAccountAnswer:
-      "আপনার ক্রেডেনশিয়াল ব্যবহার করে আমাদের সুরক্ষিত পোর্টালের মাধ্যমে লগ ইন করুন। আমরা বায়োমেট্রিক প্রমাণীকরণও অফার করি।",
-    transferLimits: "ট্রান্সফার সীমা কি?",
+      "আপনার প্রমাণপত্র ব্যবহার করে আমাদের সুরক্ষিত পোর্টালের মাধ্যমে লগইন করুন।",
+    transferLimits: "স্থানান্তর সীমা কী?",
     transferLimitsAnswer:
-      "ট্রান্সফার সীমা অ্যাকাউন্টের ধরন অনুযায়ী পরিবর্তিত হয়। প্রিমিয়াম অ্যাকাউন্টগুলি উচ্চতর সীমা এবং তাৎক্ষণিক ট্রান্সফার উপভোগ করে।",
+      "স্থানান্তর সীমা অ্যাকাউন্ট ধরণের উপর নির্ভর করে।",
   },
 };
